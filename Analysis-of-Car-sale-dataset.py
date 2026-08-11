@@ -1,5 +1,8 @@
 import pandas as p
 import numpy as n
+import matplotlib.pyplot as mat
+import seaborn as sea
+
 
 # accessing the DataSet
 print(" reading the data-set")
@@ -68,23 +71,32 @@ print(df.duplicated().sum())
 
 # Analysising the data-set
 
-print('the list of highest selling')
+cars = df["Make"].value_counts().sort_values(ascending=False).head()
+print(f" the number of cars campany make \n {cars}")
 
+data = df.loc[ df["Make"].isin(cars.index)]
+sea.countplot(data=data, x= data['Make'])
+mat.title("number of cars")
+mat.show()
+
+
+# price analysis
+print('the list of highest selling')
 H_S = df.groupby('Make')['Price'].sum().sort_values(ascending= False)
 print( H_S)
 print(f" the most Expensive company is {H_S.idxmax()} with total {H_S.max()} price")
 #  Mercedes-Benz with  749810995 price  is the most expensive company according to this dataset
 print(f" The cheapest company is {H_S.idxmin()} with total {H_S.min()} price")
 # The Fiat is the cheapest company with 61000 price
-
-C_A_S = df.groupby("Make")["Price"].mean()
-
-print(" the Averge price by company ")
-print(C_A_S)
-
-Count_Car = df['Model'].count()
-
-print( f' the total number of car models: {Count_Car}')
+H_SS=df.groupby("Make")["Price"].mean().sort_values(ascending=False).head(10)
+mat.Figure(figsize=(9,9))
+sea.barplot( x=H_SS.index, y=H_SS.values)
+mat.xticks(rotation = 65)
+mat.xlabel("Company")
+mat.ylabel("sales")
+mat.title("Companies VS price")
+mat.show()
+# Owner analysis
 
 O_A = df.groupby("Owner")['Model'].count().sort_values(ascending= False)
 '''
@@ -103,6 +115,7 @@ print("The Owner Count...")
 print(O_A)
 print(f' the highest owner type is {O_A.idxmax()} with {O_A.max()} cars counts')
 print(f' the lowest owner type is {O_A.idxmin()} with {O_A.min()} cars counts')
+# fuel analysis
 F_A = df.groupby('Fuel Type')['Make'].count().sort_values(ascending= False)
 
 '''
@@ -120,9 +133,20 @@ Petrol + CNG       1
 Petrol + LPG       1
 
 '''
+# Diesel VS Petrol
+fuel = ["Diesel","Petrol"]
+fuel_data = df.loc[df["Fuel Type"].isin(fuel)]
+print(fuel_data)
+sea.countplot(data= fuel_data, x= fuel_data["Fuel Type"])
+mat.title("Diesel VS Petrol")
+mat.xlabel("fuel")
+mat.ylabel("consumer")
+mat.show()
 
 print('the fuel comparison','\n',f'the petrol user are { F_A.loc['Petrol']}','\n',f'while the Diesel user are { F_A.loc['Diesel']}')
 print(F_A)
+
+# owner analysis
 
 print('Average price by owner')
 A_P_O = df.groupby('Owner')['Price'].mean().sort_values(ascending= False)
@@ -130,12 +154,13 @@ print(A_P_O)
 
 mil = df.groupby('Fuel Type')["Kilometer"].mean()
 print(mil)
+# Transmission
 Tra = df.groupby('Transmission')["Make"].count().sort_values(ascending=False)
 print(' the Transmission list')
 print(Tra)
 
 T_P =  df.groupby('Transmission')['Price'].mean().sort_values(ascending= False)
-
+# City analysis
 lo = df.groupby("Location")['Price'].sum().sort_values(ascending= False)
 
 print(' The Location V/S price ')
@@ -149,17 +174,18 @@ print(' the city with most cars')
 print(l_c)
 print(f'Where the most of cars on { l_c.idxmax()} with total {l_c.max()} cars')
 
+# Engine Analysis
 print(f" the Engine size {df['Engine'].mean()}")
 
 largest = df.loc[df["Engine"].idxmax()]
 print(f"Largest engine: {largest['Engine']} cc")
 print(f"Car: {largest['Make']} {largest['Model']}")
 
-largest = df.loc[df["Engine"].idxmin()]
-print(f"Largest engine: {largest['Engine']} cc")
+smallest = df.loc[df["Engine"].idxmin()]
+print(f"smallet engine: {smallest['Engine']} cc")
 print(f"Car: {largest['Make']} {largest['Model']}")
 
-
+# Seating Capacity Analysis
 print(f' the Avrage seating capacity is {df['Seating Capacity'].mean()}')
 S = df.groupby("Seating Capacity")['Model'].count()
 print(' the list range according to seating capacity','\n',S)
@@ -179,6 +205,46 @@ Med = df.groupby('Model')["Price"].median()
 print("Median of the cars", '\n', Med)
 
 print(' The distribution','\n',df['Price'].describe())
+
+# Top 10 by Avg price
+
+Avg_price = df.groupby("Make")["Price"].mean().sort_values(ascending= False).head(10)
+mat.Figure(figsize=(9,9))
+sea.barplot(x=Avg_price.index,y=Avg_price.values)
+mat.xlabel("Company")
+mat.ylabel("Average price")
+mat.title("Top 10 Cars by Average Price ")
+mat.xticks(rotation = 55, fontsize = 8)
+mat.show()
+
+# Engine Size vs Price
+E_VS_P = df.groupby("Engine")["Price"].mean().sort_values(ascending= False).head(10)
+mat.Figure(figsize=(9,9))
+sea.scatterplot(x= E_VS_P.index,y=E_VS_P.values)
+mat.xlabel("Engine size")
+mat.ylabel("Average price")
+mat.title("Engine Size vs Price")
+mat.xticks(rotation = 55, fontsize = 8)
+mat.show()
+# Average Price by Fuel Type
+Avg_price_by_fuel = df.groupby("Fuel Type")["Price"].mean().sort_values(ascending= False).head(10)
+mat.Figure(figsize=(9,9))
+sea.barplot(x=Avg_price_by_fuel.index,y=Avg_price_by_fuel.values)
+mat.xlabel("Fuel type")
+mat.ylabel("Average price")
+mat.title("Average Price by Fuel Type")
+mat.xticks(rotation = 55, fontsize = 8)
+mat.show()
+
+# Fuel Type Distribution
+
+mat.Figure(figsize=(9,9))
+sea.countplot(data=df, x="Fuel Type")
+mat.xlabel("Fuel")
+mat.ylabel("Number's of cars")
+mat.title("Fuel Type Distribution")
+mat.xticks(rotation = 55, fontsize = 8)
+mat.show()
 
 print("++++++++++++++++++++++ NUMPY +++++++++++++++++++++++++++++")
 
