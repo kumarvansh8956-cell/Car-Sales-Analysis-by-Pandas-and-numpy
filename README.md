@@ -1,60 +1,37 @@
-# Car-Sales-Analysis-by-Pandas-and-numpy
-Exploratory Data Analysis on Used Car Dataset using Pandas and NumPy.
-# 🚗 Used Car Market Analysis
+# 🚗 Car Sales Analysis using Pandas & NumPy
 
-## 📌 Project Overview
+Exploratory Data Analysis of a used-car dataset using **Pandas, NumPy,
+Matplotlib, and Seaborn**.
 
-This project analyzes a used car dataset using Python, Pandas, and NumPy.
+## 📌 Analysis
+- Data cleaning and preprocessing
+- Manufacturer and price analysis
+- Fuel type and transmission analysis
+- Owner and location analysis
+- Engine size analysis
+- Statistical analysis using NumPy
+- Data visualization using Matplotlib & Seaborn
 
-The project includes:
-
-- Data Cleaning
-- Handling Missing Values
-- Type Conversion
-- Exploratory Data Analysis (EDA)
-- Company-wise Analysis
-- Fuel Type Analysis
-- Engine Analysis
-- Seating Capacity Analysis
-- City-wise Analysis
-
----
-
-## 🛠️ Technologies Used
-
+## 🛠️ Technologies
 - Python
 - Pandas
 - NumPy
+- Matplotlib
+- Seaborn
 - Jupyter Notebook
 
----
-
-## 📊 Analysis Performed
-
-- Average car price
-- Highest and lowest priced cars
-- Average engine size
-- Largest and smallest engines
-- Most common seating capacity
-- Company-wise total prices
-- Company-wise average prices
-- Fuel type analysis
-- City-wise car distribution
-
----
+## 📊 Key Insights
+- Maruti Suzuki has the highest number of listings.
+- Ferrari has the highest average price in the dataset.
+- Diesel cars slightly outnumber Petrol cars.
+- Manual cars have more listings than Automatic cars.
+- Mumbai has the highest number of car listings.
 
 ## 📁 Dataset
+Used-car dataset containing information about price, manufacturer,
+model, year, mileage, fuel type, transmission, engine specifications,
+location, ownership, and other vehicle attributes.
 
-Used Car Dataset
-
----
-
-## 🎯 Skills Demonstrated
-
-- Data Cleaning
-- Data Transformation
-- GroupBy Operations
-- Aggregation
-- Sorting
-- Filtering
-- Exploratory Data Analysis
+## 🎯 Purpose
+This project demonstrates practical skills in **data cleaning,
+exploratory data analysis, statistical analysis, and visualization**.
